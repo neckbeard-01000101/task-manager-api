@@ -2,17 +2,19 @@ package main
 
 import (
 	"fmt"
+	"github.com/gofor-little/env"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"task-manager/config"
 	"task-manager/routes"
-
-	"github.com/gofor-little/env"
-	"github.com/gorilla/mux"
 )
 
 func main() {
 	err := env.Load(".env")
+	if err != nil {
+		log.Fatal(err)
+	}
 	r := mux.NewRouter()
 	routes.ReqisterRoutes(r)
 	server := &http.Server{
